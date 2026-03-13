@@ -1,0 +1,29 @@
+# =============================================================================
+# requirements.txt — Local Voice Agent
+# Install into the project venv:
+#   python -m venv venv
+#   source venv/bin/activate
+#   pip install -r requirements.txt
+# =============================================================================
+
+# ── Audio I/O ──────────────────────────────────────────────────────────────────
+sounddevice>=0.4.6          # Cross-platform audio capture + playback (PortAudio)
+numpy>=1.24.0               # Audio buffer manipulation
+
+# ── VAD ───────────────────────────────────────────────────────────────────────
+# Silero VAD is loaded via torch.hub at runtime.
+# PyTorch CPU build is sufficient (VAD model is tiny).
+torch>=2.1.0                # Silero VAD inference
+torchaudio>=2.1.0           # Required by some torch.hub models
+
+# ── STT ───────────────────────────────────────────────────────────────────────
+faster-whisper>=1.0.0       # CTranslate2-based Whisper — fast CPU int8 inference
+
+# ── LLM (OpenAI-compatible client → vLLM backend) ─────────────────────────────
+openai>=1.30.0              # Official client, supports base_url override + streaming
+
+# ── TTS ───────────────────────────────────────────────────────────────────────
+kokoro-onnx>=0.4.0          # Kokoro TTS ONNX runtime — ultra-low latency CPU TTS
+
+# ── Utilities ─────────────────────────────────────────────────────────────────
+huggingface_hub[cli]>=0.22.0   # For huggingface-cli used in download_models.sh
